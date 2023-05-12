@@ -15,7 +15,7 @@ PARCL_LABS_API_KEY = os.getenv('parcl_labs_api_key')
 PARCL_ID = 2900187 # new york market
 
 # pass in parcl_id into the url structure, replace with prod URL
-url = f'https://api.realestate.dev.parcllabs.com/v1/sales/{PARCL_ID}/history'
+url = f'https://api.realestate.parcllabs.com/v1/sales/{PARCL_ID}/history'
 
 # authorize
 header = {

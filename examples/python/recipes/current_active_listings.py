@@ -51,7 +51,7 @@ for parcl_id in nyc_markets:
     location_type = market['location_type']
     name = market['name']    
     
-    listings_endpoint = f'https://api.realestate.dev.parcllabs.com/v1/listings/{parcl_id}/current'
+    listings_endpoint = f'https://api.realestate.parcllabs.com/v1/listings/{parcl_id}/current'
 
     listings_response = requests.get(listings_endpoint, headers=headers).json()
     
