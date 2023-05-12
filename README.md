@@ -22,7 +22,7 @@ To get started with the Parcl Labs API Examples, follow these steps:
    git clone https://github.com/ParclLabs/parcllabs-examples.git
    ```
 
-3. Using either `pipenv` or `venv` create a virtualenv. Run `pip install -r requirements.txt` to the desired environment to install the packages required to run all recipes.
+3. Run `pip install -r requirements.txt` to the desired environment to install the packages required to run all recipes. You can also use `pipenv` or `venv` to install into the libraries into a virtual env if you prefer.
 
 4. Explore the various examples available in the repository. Each example focuses on different aspects and features of the Parcl Labs API, showcasing its capabilities in different scenarios.
 
