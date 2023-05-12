@@ -22,13 +22,15 @@ To get started with the Parcl Labs API Examples, follow these steps:
    git clone https://github.com/ParclLabs/parcllabs-examples.git
    ```
 
-3. Explore the various examples available in the repository. Each example focuses on different aspects and features of the Parcl Labs API, showcasing its capabilities in different scenarios.
+3. Run `pip install -r requirements.txt` to the desired environment to install the packages required to run all recipes. You can also use `pipenv` or `venv` to install into the libraries into a virtual env if you prefer.
 
-4. Choose an example that aligns with your project requirements or area of interest.
+4. Explore the various examples available in the repository. Each example focuses on different aspects and features of the Parcl Labs API, showcasing its capabilities in different scenarios.
 
-5. Follow the instructions provided in the example's documentation to integrate the Parcl Labs API into your own application. You will find code snippets and guidelines in popular programming languages such as Python, JavaScript, and Ruby.
+5. Choose an example that aligns with your project requirements or area of interest.
 
-6. Customize and modify the example code as needed to fit your specific use case. The examples are meant to serve as starting points, and you are encouraged to build upon them to create your unique applications.
+6. Follow the instructions provided in the example's documentation to integrate the Parcl Labs API into your own application. You will find code snippets and guidelines in popular programming languages such as Python, JavaScript, and Ruby.
+
+7. Customize and modify the example code as needed to fit your specific use case. The examples are meant to serve as starting points, and you are encouraged to build upon them to create your unique applications.
 
 ## Contribution Guidelines
 

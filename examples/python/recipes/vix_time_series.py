@@ -50,7 +50,7 @@ for parcl_id in markets:
     market = get_market(markets_json, parcl_id)
     name = market['name']    
     
-    vix_endpoint = f'https://api.realestate.dev.parcllabs.com/v1/financials/{parcl_id}/volatility'
+    vix_endpoint = f'https://api.realestate.parcllabs.com/v1/financials/{parcl_id}/volatility'
 
     vix_response = requests.get(vix_endpoint, headers=headers).json()
     
