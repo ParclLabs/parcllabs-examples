@@ -88,6 +88,6 @@ for c in cities:
 ax.legend()
 ax.set_xlabel('Date')
 ax.set_ylabel('Absorption Rate')
-ax.set_title('Daily Absorption Rate: PHX, SF and CHI')
+ax.set_title('Daily Absorption Rate: Austin, Dallas and Houston')
 
 plt.show()
