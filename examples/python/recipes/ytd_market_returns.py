@@ -31,99 +31,6 @@ response = requests.get(markets_endpoint, headers=headers, params=params)
 
 markets_json = response.json()
 
-
-# regional cross walk
-# create regional cross walk between state codes from markets endpoint
-regional_cx = {
-    'NEW ENGLAND': [
-        'CT', # --09
-        'ME', # --23
-        'MA', # --25
-        'NH', # --33
-        'RI', # --44
-        'VT' # --50
-    ],
-    'MIDDLE ATLANTIC': [
-        'NJ', # -- 34
-        'NY', # -- 36
-        'PA' # -- 42
-    ],
-    'EAST NORTH CENTRAL': [
-        'IN', # -- 18
-        'IL', # -- 17
-        'MI', # -- 26
-        'OH', # --39
-        'WI' # --55
-    ],
-    'WEST NORTH CENTRAL': [
-        'IA', # --19
-        'KS',# -- 20
-        'MN',# -- 27
-        'MO',# -- 29
-        'NE', # -- 31
-        'ND', # -- 38
-        'SD' # -- 46
-    ],
-    'SOUTH ATLANTIC': [
-        'DE', # -- 10
-       'DC', # -- 11
-        'FL',# --12 
-        'GA', # --13
-        'MD', # -- 24
-        'NC', # -- 37
-        'SC', # -- 45
-        'VA', # -- 51
-        'WV' # -- 54
-    ],
-    
-    'EAST SOUTH CENTRAL': [
-         'AL',# -- 01
-         'KY',# -- 21
-         'MS',# --28
-         'TN'# -- 47
-    ],
-    'WEST SOUTH CENTRAL': [
-        'AR',# --05
-        'LA', # --22
-        'OK', # --40
-        'TX' # --48
-    ],
-    'MOUNTAIN': [
-        'AZ', # --04
-        'CO', # --08
-        'ID', # --16
-        'NM', # --35
-        'MT', # --30
-        'UT', # --49
-        'NV', # --32
-        'WY' # --56
-    ],
-    'PACIFIC': [
-        'AK', # --02
-        'CA', # --06
-        'HI', # --15
-        'OR', # --41
-        'WA' # --53
-    ]
-
-}
-
-def lookup_region(state_code):
-    for k in regional_cx.keys():
-        if state_code in regional_cx[k]:
-            return k
-
-
-# define data structure for custom collection of data elements
-data = {}
-
-for v in markets_json:
-    data[v['parcl_id']] = {
-        'name': v['name'].replace('City', ''), 
-        'state': v['state'],
-        'region': lookup_region(v['state'])
-    }
-
 # get relevant data from api
 # set start and end times for price feed with today being the max date
 end = datetime.today().date()
@@ -138,7 +45,9 @@ params = {
 alldata = []
 
 # grab the price feed and calculate percent change since t0
-for parcl_id in data.keys():
+for market in markets_json:
+
+    parcl_id = market['parcl_id']
     
     price_feed_endpoint = f"https://api.realestate.parcllabs.com/v1/price_feed/{parcl_id}/history" 
     
@@ -168,13 +77,12 @@ for parcl_id in data.keys():
     
     price_feed = pd.DataFrame(response['price_feed'])
     price_feed['pct_change_since_start'] = (1-price_feed.iloc[0].price / price_feed.price)
-    price_feed['name'] = data[parcl_id]['name']
-    data[parcl_id]['price_feed'] = price_feed
+    price_feed['name'] = market['name']
     record = pd.DataFrame({
-        'name': data[parcl_id]['name'],
+        'name': market['name'],
         'pct_change': price_feed.iloc[-1].pct_change_since_start,
         'last_price': price_feed.iloc[-1].price,
-        'region': data[parcl_id]['region'],
+        'region': market['census_region'],
         'population': pid_total_pop
     }, index=[0])
     alldata.append(record)
@@ -185,7 +93,6 @@ df = pd.concat(alldata)
 df = df.sort_values(['region', 'population'], ascending=False)
 df = df.groupby('region').head(8).reset_index(drop=True)
 df = df.sort_values(['region', 'pct_change'], ascending=False)
-
 
 # plot
 fig = px.scatter(

@@ -1,3 +1,12 @@
+"""
+To get started with the Parcl Labs API, please follow the quick start
+guide to get your API key: 
+
+https://docs.parcllabs.com/docs/quickstart
+"""
+
+
+
 import os
 import requests
 from datetime import datetime, timedelta

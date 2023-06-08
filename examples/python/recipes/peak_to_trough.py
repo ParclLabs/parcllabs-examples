@@ -63,11 +63,11 @@ for parcl_id, mkt_name in markets.items():
     )
 
     # convert the pricefeed key into a pandas dataframe
-    pricefeed = pd.DataFrame(response.json()['pricefeed'])
+    pricefeed = pd.DataFrame(response.json()['price_feed'])
     pricefeed['date'] = pd.to_datetime(pricefeed['date'])
     pricefeed = pricefeed.sort_values('date')
-    peak_2022 = pricefeed.loc[pricefeed['date']< datetime.strptime('1/1/2023', '%m/%d/%Y')]['parcl_price_feed'].max()
-    last_price = pricefeed['parcl_price_feed'].values[-1]
+    peak_2022 = pricefeed.loc[pricefeed['date']< datetime.strptime('1/1/2023', '%m/%d/%Y')]['price'].max()
+    last_price = pricefeed['price'].values[-1]
     peak_to_trough = (last_price-peak_2022)/peak_2022
     results.append((mkt_name, peak_to_trough))
     
